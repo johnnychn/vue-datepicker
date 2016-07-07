@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="UTF-8">
+    <title>vue-datepicker demo</title>
+    <!--<link rel="stylesheet" href="http://oa.fenqile.com/vendor/bootstrap/css/bootstrap.min.css" type="text/css">-->
+    <!--<link rel="stylesheet" href="http://oa.fenqile.com/res/css/global.css" type="text/css">-->
+    <link rel="stylesheet" href="css/datepicker.css" type="text/css">
+</head>
+<script id="vue-datepicker" type="text/template" >
+    <div class="vue-date-picker"  :style="{zIndex:zIndex,fontSize:size.width/25+'px'}">
+        <div :class="input_class"  v-show="type=='div'" @click="onFocus">{{date}}</div>
+        <input :class="input_class"  v-show="type=='input'" @focus="onFocus" v-model="date"/>
+        <div class="picker" v-show="show" transition="vue-date-picker" style="position: absolute;">
+            <div v-show="selector=='years'" >
+                <div class="tile title hover" @click="prevYears"  :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}"><</div>
+                <div class="tile title"   :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:70+'%'}">{{years_title}}</div>
+                <div class="tile title hover"  @click="nextYears" :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">> </div>
+                <div v-for="item in years" class="tile  hover" :class="{selected:item==real_date.year}" @click="selectYear(item)" :style="{lineHeight:size.height/3*0.8+'px',width:size.width/4+'px',height:size.height/3*0.8+'px'}">{{item}}</div>
+            </div>
+            <div v-show="selector=='months'" >
+                <div class="tile title hover" @click="prevYear"  :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}"><</div>
+                <div class="tile title hover"  @click="showSeletor('years')" :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:70+'%'}">{{year_title}}</div>
+                <div class="tile title hover"  @click="nextYear" :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">> </div>
+                <div v-for="(index,item) in months" class="tile hover" :class="{selected:item==real_date.month&&catch_year==real_date.year}" @click="selectMonth(item)" :style="{lineHeight:size.height/3*0.8+'px',width:size.width/4+'px',height:size.height/3*0.8+'px'}">{{lang.monthsShort[index]}}</div>
+            </div>
+            <div v-show="selector=='days'" >
+                <div class="tile title hover" @click="prevMonth"  :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}"><</div>
+                <div class="tile title hover"   @click="showSeletor('months')" :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:70+'%'}">{{days_title}}</div>
+                <div class="tile title hover"  @click="nextMonth" :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">> </div>
+                <div v-for="(index,item) in lang.daysMin" class="days_title tile "  :style="{lineHeight:size.height/7*0.8+'px',width:size.width/7+'px',height:size.height/7*0.8+'px'}">{{item}}</div>
+
+                <div v-for="(index,item) in days" class="tile" :class="{hover:true,gray:item.month!=catch_month,selected:item.date==real_date.day&&item.month==real_date.month&&catch_year==real_date.year}" @click="selectDay(item)" :style="{lineHeight:size.height/7*0.8+'px',width:size.width/7+'px',height:size.height/7*0.8+'px'}">{{item.date}}</div>
+            </div>
+        </div>
+    </div>
+</script>
+<body>
+
+<div id="app">
+    date:{{date}}<br/>
+    <vue-datepicker :date.sync="date" type="div" :size="{width:320}" auto-close=true format="yyyy-mm-dd" z-index="1000" ></vue-datepicker>
+</div>
+<script type="text/javascript" src="js/fastclick.js"></script>
+<script type="text/javascript" src="js/underscore.js"></script>
+<script type="text/javascript" src="js/css-builder.0.0.1.min.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/vue-datepicker.js"></script>
+
+
+<script type="text/javascript">
+    FastClick.attach(document.body);
+    Vue.config.devtools = true;
+    var app = new Vue({
+        el: '#app',
+        data: {date:'2016-7-1 10:10:10',
+//            lang :{
+//            daysMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+//            months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+//            monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+//            weekStart: 1,
+//            yearFirst: true,
+//            yearSuffix: ''
+//        }
+        }
+    });
+</script>
+</body>
+</html>
