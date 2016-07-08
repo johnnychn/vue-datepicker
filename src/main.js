@@ -3,5 +3,6 @@ import VueDatePicker from './VueDatePicker.vue'
 
 new Vue({
   el: 'body',
-  components: { VueDatePicker }
+  components: { VueDatePicker },
+  data:{date:'2010'}
 })

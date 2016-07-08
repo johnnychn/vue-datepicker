@@ -60,7 +60,7 @@
         border-radius: 8px;
         border: 2px solid #fff;
         box-sizing: border-box;
-        padding: 10px 4px 10px 4px;
+        padding: 8px 4px 8px 4px;
 
     }
 
@@ -104,61 +104,61 @@
     }
 </style>
 <template>
-    <div class="vue-date-picker" :style="{zIndex:zIndex,fontSize:size.width/25+'px'}">
+    <div class="vue-date-picker" :style="{zIndex:zIndex,fontSize:width/25+'px'}">
         <div :class="input_class" v-show="type=='div'" @click="onFocus">{{date}}</div>
         <input :class="input_class" v-show="type=='input'" @focus="onFocus" v-model="date"/>
         <div class="picker" v-show="show" transition="vue-date-picker" style="position: absolute;">
             <div v-show="selector=='years'">
                 <div class="tile title hover" @click="prevYears"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">&lt;
+                     :style="{width:15+'%'}">&lt;
                 </div>
-                <div class="tile title" :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:70+'%'}">
+                <div class="tile title" :style="{width:70+'%'}">
                     {{years_title}}
                 </div>
                 <div class="tile title hover" @click="nextYears"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">&gt;
+                     :style="{width:15+'%'}">&gt;
                 </div>
                 <div v-for="item in years" class="tile  hover" :class="{selected:item==real_date.year}"
                      @click="selectYear(item)"
-                     :style="{lineHeight:size.height/3*0.8+'px',width:size.width/4+'px',height:size.height/3*0.8+'px'}">
+                     :style="{width:width/4+'px'}">
                     {{item}}
                 </div>
             </div>
             <div v-show="selector=='months'">
                 <div class="tile title hover" @click="prevYear"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">&lt;
+                     :style="{width:15+'%'}">&lt;
                 </div>
                 <div class="tile title hover" @click="showSeletor('years')"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:70+'%'}">{{year_title}}
+                     :style="{width:70+'%'}">{{year_title}}
                 </div>
                 <div class="tile title hover" @click="nextYear"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">&gt;
+                     :style="{width:15+'%'}">&gt;
                 </div>
                 <div v-for="(index,item) in months" class="tile hover"
                      :class="{selected:item==real_date.month&&catch_year==real_date.year}" @click="selectMonth(item)"
-                     :style="{lineHeight:size.height/3*0.8+'px',width:size.width/4+'px',height:size.height/3*0.8+'px'}">
+                     :style="{width:width/4+'px'}">
                     {{lang.monthsShort[index]}}
                 </div>
             </div>
             <div v-show="selector=='days'">
                 <div class="tile title hover" @click="prevMonth"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">&lt;
+                     :style="{width:15+'%'}">&lt;
                 </div>
                 <div class="tile title hover" @click="showSeletor('months')"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:70+'%'}">{{days_title}}
+                     :style="{width:70+'%'}">{{days_title}}
                 </div>
                 <div class="tile title hover" @click="nextMonth"
-                     :style="{height:size.height/5+'px',lineHeight:size.height/5+'px',width:15+'%'}">&gt;
+                     :style="{width:15+'%'}">&gt;
                 </div>
                 <div v-for="(index,item) in lang.daysMin" class="days_title tile "
-                     :style="{lineHeight:size.height/7*0.8+'px',width:size.width/7+'px',height:size.height/7*0.8+'px'}">
+                     :style="{width:width/7+'px'}">
                     {{item}}
                 </div>
 
                 <div v-for="(index,item) in days" class="tile"
                      :class="{hover:true,gray:item.month!=catch_month,selected:item.date==real_date.day&&item.month==real_date.month&&catch_year==real_date.year}"
                      @click="selectDay(item)"
-                     :style="{lineHeight:size.height/7*0.8+'px',width:size.width/7+'px',height:size.height/7*0.8+'px'}">
+                     :style="{width:width/7+'px'}">
                     {{item.date}}
                 </div>
             </div>
@@ -332,11 +332,8 @@
             selector: {
                 default: 'days'
             },
-            size: {
-                type: Object,
-                default: function () {
-                    return {width: 280}
-                }
+            width: {
+                default: 240
             },
             autoClose: {
                 default: true
@@ -474,7 +471,7 @@
             var me = this;
             this.updateDate(stringToDate(this.date));
             this.years = buildYears(this.real_date.year);
-            CssBuilder.cssSmartObject(this.$el.querySelector('.vue-date-picker>.picker'), this.size);
+            CssBuilder.cssSmartObject(this.$el.querySelector('.vue-date-picker>.picker'), {width:this.width});
             if (match(this.format, 'yyyy')) {
                 this.min_time = 'year';
                 this.selector = 'years';
