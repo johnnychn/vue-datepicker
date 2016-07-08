@@ -2,6 +2,12 @@
 
 vue-datepicker
 
+#demo
+
+[demo](http://htmlpreview.github.io/?https://github.com/johnnyGoo/vue-datepicker/blob/master/index.html)
+
+
+
 # setting
 | 名称                    |类型               |默认       | 说明                                     |
 | ----------------------- | ----------------- | -------- | ---------------------------------------- |
