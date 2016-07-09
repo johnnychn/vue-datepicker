@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>vue-date-picker</title>
-  </head>
-  <body>
-    <vue-date-picker :date="date" type="div" width="240" style="float: left"></vue-date-picker>
-    <vue-date-picker style="float: left"></vue-date-picker>
-    <script src="dist/build.js"></script>
-  </body>
+</head>
+<style>
+    .datepicker_input {
+        padding: 5px;
+        border: 1px solid #006600;
+        text-align: center;
+    }
+
+    .datepicker_div {
+        padding: 5px;
+        border: 1px solid #006600;
+    }
+
+</style>
+<body>
+<div style="padding: 20px;text-align: center">
+
+
+    <vue-date-picker :date="date" input-class="datepicker_div" type="div" width="240"></vue-date-picker>
+    <br/>
+    <vue-date-picker input-class="datepicker_input" format="yyyy"></vue-date-picker><br/>
+    <vue-date-picker input-class="datepicker_input" format="yyyy-mm"></vue-date-picker><br/>
+    <vue-date-picker input-class="datepicker_input"></vue-date-picker>
+</div>
+<script src="dist/build.js"></script>
+</body>
 </html>

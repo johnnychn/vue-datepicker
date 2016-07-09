@@ -13,6 +13,10 @@
         transform: scale(0.9, 0.9)
     }
 
+    .vue-date-picker {
+        text-align: left;
+    }
+
     .vue-date-picker > .picker:after {
         top: -6px;
         left: 12px;
@@ -104,9 +108,9 @@
     }
 </style>
 <template>
-    <div class="vue-date-picker" :style="{zIndex:zIndex,fontSize:width/25+'px'}">
-        <div :class="input_class" v-show="type=='div'" @click="onFocus">{{date}}</div>
-        <input :class="input_class" v-show="type=='input'" @focus="onFocus" v-model="date"/>
+    <div class="vue-date-picker" @click="clickInSide" :style="{zIndex:zIndex,fontSize:width/25+'px'}">
+        <div :class="inputClass" v-show="type=='div'" @click="onFocus">{{date}}</div>
+        <input :class="inputClass" v-show="type=='input'" @focus="onFocus" v-model="date"/>
         <div class="picker" v-show="show" transition="vue-date-picker" style="position: absolute;">
             <div v-show="selector=='years'">
                 <div class="tile title hover" @click="prevYears"
@@ -167,9 +171,6 @@
 </template>
 
 <script>
-    /**
-     * Created by johnny on 16/6/29.
-     */
 
 
     /*!
@@ -181,6 +182,23 @@
 
     import _ from 'underscore'
     import CssBuilder from './CssBuilder.js'
+
+
+    function documentEvent(event, cb, useCapture) {
+        function remove() {
+            document.documentElement.removeEventListener(event, icc, useCapture)
+        }
+
+        function icc(e) {
+            if (cb(e) == true) {
+                remove();
+            }
+        }
+
+        document.documentElement.addEventListener(event, icc, useCapture)
+    }
+
+
     //正则匹配
     function match(str, matchs) {
         var regStr = '';
@@ -205,14 +223,24 @@
     function stringToDate(dateString) {
         var str = dateString.toString();
         str = str.replace(/-/g, "/");
+        var datearr=str.split(' ')[0].split('/');
+        console.log(datearr);
+
         var obj = {};
         var date = new Date(str);
+        date.setFullYear(datearr[0]);
+        if(datearr.length>1){
+        date.setMonth(datearr[1]-1);}
+        if(datearr.length>2) {
+            date.setDate(datearr[2]);
+        }
         obj.year = date.getFullYear();
         obj.month = date.getMonth() + 1;
         obj.day = date.getDate();
         obj.hours = date.getHours();
         obj.minutes = date.getMinutes();
         obj.seconds = date.getSeconds();
+        console.log(str+'  '+date.getFullYear())
         return obj;
     }
 
@@ -344,6 +372,10 @@
             type: {
                 type: String,
                 default: 'input'
+            },
+            inputClass: {
+                type: String,
+                default: ''
             }
         },
         data: function () {
@@ -355,18 +387,32 @@
                 days: [],
                 real_date: null,
                 min_time: 'day',
-                real_date:{}
+                real_date: {},
+                click_in_side: false
             };
         },
         // prop 可以用在模板内
         // 可以用 `this.msg` 设置
 
         methods: {
+            clickInSide: function () {
+                var me = this;
+                me.click_in_side = true;
+                setTimeout(function () {
+                    me.click_in_side = false;
+                }, 10)
+            },
+            close: function () {
+                var me = this;
+                if (me.click_in_side == false) {
+                    me.show = false;
+                }
+                return !me.click_in_side;
+            },
             onFocus: function () {
                 this.show = true;
             },
             onBlur: function () {
-
 
             },
             showSeletor: function (type) {
@@ -471,7 +517,7 @@
             var me = this;
             this.updateDate(stringToDate(this.date));
             this.years = buildYears(this.real_date.year);
-            CssBuilder.cssSmartObject(this.$el.querySelector('.vue-date-picker>.picker'), {width:this.width});
+            CssBuilder.cssSmartObject(this.$el.querySelector('.vue-date-picker>.picker'), {width: this.width});
             if (match(this.format, 'yyyy')) {
                 this.min_time = 'year';
                 this.selector = 'years';
@@ -496,8 +542,26 @@
                 this.min_time = 'seconds';
                 this.selector = 'seconds';
             }
+        },
+        watch: {
+            'show': function (val, oldVal) {
+                var me = this;
+                if (val == true) {
+                    documentEvent('click', me.close)
+                }else{
+                    this.updateDate(this.real_date);
+                }
+            },
+            'date': function (val, oldVal) {
+                if (this.min_time == 'day') {
+                    var reg = new RegExp('^(?:(?!0000)[0-9]{1,5}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$')
+                    if (reg.test(val)) {
 
+                        this.updateDate(stringToDate(val));
+                    }
+                }
 
+            }
         }
     }
 
