@@ -15,6 +15,7 @@
 
     .vue-date-picker {
         text-align: left;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     .vue-date-picker > .picker:after {
@@ -46,17 +47,7 @@
         width: 100%;
         position: relative;
         height: auto;
-    }
 
-    .vue-date-picker > .picker > div > .title {
-        width: 100%;
-        box-sizing: border-box;
-        border-bottom: 1px solid #eee;
-        margin-top: 2px;
-    }
-
-    .vue-date-picker > .picker > div > .gray {
-        color: #999;
     }
 
     .vue-date-picker > .picker > div > .tile {
@@ -64,9 +55,20 @@
         border-radius: 8px;
         border: 2px solid #fff;
         box-sizing: border-box;
-        padding: 8px 4px 8px 4px;
+
+
 
     }
+    .vue-date-picker > .picker > div > .gray {
+        box-sizing: border-box;
+        color: #ccc;
+    }
+    .vue-date-picker > .picker > div > .title {
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
 
     .vue-date-picker > .picker > div > .tile.selected {
         background: #39f;
@@ -106,63 +108,72 @@
         border-radius: 0px;
         border: 0px;
     }
+    .vue-date-picker > .picker > div > .line {
+        background: #f0f0f0;
+        clear: both;
+        width: 100%;
+    }
+
 </style>
 <template>
-    <div class="vue-date-picker" @click="clickInSide" :style="{zIndex:zIndex,fontSize:width/25+'px'}">
+    <div class="vue-date-picker" @click="clickInSide" :style="{zIndex:zIndex,fontSize:fontSize+'px'}">
         <div :class="inputClass" v-show="type=='div'" @click="onFocus">{{date}}</div>
         <input :class="inputClass" v-show="type=='input'" @focus="onFocus" v-model="date"/>
         <div class="picker" v-show="show" transition="vue-date-picker" style="position: absolute;">
             <div v-show="selector=='years'">
                 <div class="tile title hover" @click="prevYears"
-                     :style="{width:15+'%'}">&lt;
+                     :style="{width:15+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">&lt;
                 </div>
-                <div class="tile title" :style="{width:70+'%'}">
+                <div class="tile title" :style="{width:70+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">
                     {{years_title}}
                 </div>
                 <div class="tile title hover" @click="nextYears"
-                     :style="{width:15+'%'}">&gt;
+                     :style="{width:15+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">&gt;
                 </div>
+                <div class="line" style="height: 1px"></div>
                 <div v-for="item in years" class="tile  hover" :class="{selected:item==real_date.year}"
                      @click="selectYear(item)"
-                     :style="{width:width/4+'px'}">
+                     :style="{width:cellMonthWidth+'px',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">
                     {{item}}
                 </div>
             </div>
             <div v-show="selector=='months'">
                 <div class="tile title hover" @click="prevYear"
-                     :style="{width:15+'%'}">&lt;
+                     :style="{width:15+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">&lt;
                 </div>
                 <div class="tile title hover" @click="showSeletor('years')"
-                     :style="{width:70+'%'}">{{year_title}}
+                     :style="{width:70+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">{{year_title}}
                 </div>
                 <div class="tile title hover" @click="nextYear"
-                     :style="{width:15+'%'}">&gt;
+                     :style="{width:15+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">&gt;
                 </div>
+                <div class="line" style="height: 1px"></div>
                 <div v-for="(index,item) in months" class="tile hover"
                      :class="{selected:item==real_date.month&&catch_year==real_date.year}" @click="selectMonth(item)"
-                     :style="{width:width/4+'px'}">
+                     :style="{width:cellMonthWidth+'px',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">
                     {{lang.monthsShort[index]}}
                 </div>
             </div>
             <div v-show="selector=='days'">
                 <div class="tile title hover" @click="prevMonth"
-                     :style="{width:15+'%'}">&lt;
+                     :style="{width:15+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">&lt;
                 </div>
                 <div class="tile title hover" @click="showSeletor('months')"
-                     :style="{width:70+'%'}">{{days_title}}
+                     :style="{width:70+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">{{days_title}}
                 </div>
                 <div class="tile title hover" @click="nextMonth"
-                     :style="{width:15+'%'}">&gt;
+                     :style="{width:15+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}" >&gt;
                 </div>
+                <div class="line" style=""></div>
                 <div v-for="(index,item) in lang.daysMin" class="days_title tile "
-                     :style="{width:width/7+'px'}">
+                     :style="{width:cellDayWidth+'px',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}" style="">
                     {{item}}
                 </div>
 
                 <div v-for="(index,item) in days" class="tile"
                      :class="{hover:true,gray:item.month!=catch_month,selected:item.date==real_date.day&&item.month==real_date.month&&catch_year==real_date.year}"
                      @click="selectDay(item)"
-                     :style="{width:width/7+'px'}">
+                     :style="{width:cellDayWidth+'px',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">
                     {{item.date}}
                 </div>
             </div>
@@ -224,8 +235,6 @@
         var str = dateString.toString();
         str = str.replace(/-/g, "/");
         var datearr=str.split(' ')[0].split('/');
-        console.log(datearr);
-
         var obj = {};
         var date = new Date(str);
         date.setFullYear(datearr[0]);
@@ -240,7 +249,6 @@
         obj.hours = date.getHours();
         obj.minutes = date.getMinutes();
         obj.seconds = date.getSeconds();
-        console.log(str+'  '+date.getFullYear())
         return obj;
     }
 
@@ -302,8 +310,7 @@
             nowMonth = month + 1;
         }
 
-        while (days.length < 42) {
-
+        while (days.length %7!=0) {
             if (days[days.length - 1].date == daycount) {
                 l_date = 1
             } else {
@@ -511,6 +518,18 @@
                 return this.catch_year + this.lang.yearSuffix + '';
             }, days_title: function () {
                 return this.catch_year + this.lang.yearSuffix + ' ' + this.lang.months[this.catch_month - 1];
+            },
+            cellDayWidth:function () {
+                return this.width/7;
+            },
+            cellMonthWidth:function () {
+                return Math.floor(this.width/4);
+            },
+            fontSize:function () {
+                return Math.floor(this.width/20);
+            },
+            lineHeight:function () {
+                return Math.floor(this.width/8);
             }
         },
         compiled: function () {
