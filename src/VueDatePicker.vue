@@ -191,7 +191,12 @@
      * Copyright 2016-2017 Johnny chen
      */
 
-    import Smart from './smart.min'
+    if(!window.Smart){
+        throw 'vue-popup required smart.js'
+    }else if(!window.Vue){
+        throw 'vue-popup required Vue'
+    }
+    var Smart=window.Smart;
     var _=Smart._;
     var documentEvent=Smart.Event.documentEvent;
 
