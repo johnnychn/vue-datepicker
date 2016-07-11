@@ -192,13 +192,14 @@
      */
 
     if(!window.Smart){
-        throw 'vue-popup required smart.js'
-    }else if(!window.Vue){
-        throw 'vue-popup required Vue'
+        throw 'vue-datepicker required smart.js'
     }
+
     var Smart=window.Smart;
+    var Css=Smart.Css;
+    var Event=Smart.Event;
     var _=Smart._;
-    var documentEvent=Smart.Event.documentEvent;
+    var documentEvent=Event.documentEvent;
 
     //正则匹配
     function match(str, matchs) {
@@ -526,7 +527,7 @@
             var me = this;
             this.updateDate(stringToDate(this.date));
             this.years = buildYears(this.real_date.year);
-            Smart.Css.smartCss(this.$el.querySelector('.vue-date-picker>.picker'), {width: this.width});
+            Css.smartCss(this.$el.querySelector('.vue-date-picker>.picker'), {width: this.width});
             if (match(this.format, 'yyyy')) {
                 this.min_time = 'year';
                 this.selector = 'years';
