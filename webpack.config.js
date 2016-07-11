@@ -2,11 +2,13 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/VueDatePicker.vue',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    library: 'VueDatePicker',
+    libraryTarget: 'umd',
+    filename: 'vue-date-picker.js'
   },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),

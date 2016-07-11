@@ -32,6 +32,16 @@
     <vue-date-picker input-class="datepicker_input" format="yyyy-mm"></vue-date-picker><br/>
     <vue-date-picker input-class="datepicker_input"></vue-date-picker>
 </div>
-<script src="dist/build.js"></script>
+<script src="dist/vue.min.js"></script>
+<script src="dist/vue-date-picker.js"></script>
+<script>
+    new Vue({
+        el: 'body',
+        components: { VueDatePicker },
+        data:{date:'2010'}
+    })
+
+
+</script>
 </body>
 </html>

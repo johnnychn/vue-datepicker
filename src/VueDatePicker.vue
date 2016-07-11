@@ -191,24 +191,9 @@
      * Copyright 2016-2017 Johnny chen
      */
 
-    import _ from 'underscore'
-    import CssBuilder from './CssBuilder.js'
-
-
-    function documentEvent(event, cb, useCapture) {
-        function remove() {
-            document.documentElement.removeEventListener(event, icc, useCapture)
-        }
-
-        function icc(e) {
-            if (cb(e) == true) {
-                remove();
-            }
-        }
-
-        document.documentElement.addEventListener(event, icc, useCapture)
-    }
-
+    import Smart from './smart.min'
+    var _=Smart._;
+    var documentEvent=Smart.Event.documentEvent;
 
     //正则匹配
     function match(str, matchs) {
@@ -536,7 +521,7 @@
             var me = this;
             this.updateDate(stringToDate(this.date));
             this.years = buildYears(this.real_date.year);
-            CssBuilder.cssSmartObject(this.$el.querySelector('.vue-date-picker>.picker'), {width: this.width});
+            Smart.Css.smartCss(this.$el.querySelector('.vue-date-picker>.picker'), {width: this.width});
             if (match(this.format, 'yyyy')) {
                 this.min_time = 'year';
                 this.selector = 'years';
