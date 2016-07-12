@@ -90,7 +90,6 @@
     }
 
     .vue-date-picker > .picker {
-        position: relative;
         text-align: center;
         box-shadow: 0 2px 3px #999;
         box-sizing: content-box;
@@ -100,6 +99,7 @@
         margin-top: 6px;
         user-select: none;
         -webkit-user-select: none;
+
 
     }
 
@@ -116,10 +116,10 @@
 
 </style>
 <template>
-    <div class="vue-date-picker" @click="clickInSide" :style="{zIndex:zIndex,fontSize:fontSize+'px'}">
+    <div class="vue-date-picker" @click="clickInSide" :style="{fontSize:fontSize+'px'}">
         <div :class="inputClass" v-show="type=='div'" @click="onFocus">{{date}}</div>
         <input :class="inputClass" v-show="type=='input'" @focus="onFocus" v-model="date"/>
-        <div class="picker" v-show="show" transition="vue-date-picker" style="position: absolute;">
+        <div class="picker" v-show="show" transition="vue-date-picker" :style="{zIndex:zIndex}" style="position: fixed;">
             <div v-show="selector=='years'">
                 <div class="tile title hover" @click="prevYears"
                      :style="{width:15+'%',height:cellDayWidth+'px',lineHeight:lineHeight+'px'}">&lt;
