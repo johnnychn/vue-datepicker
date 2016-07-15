@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d5b1285-6268-4e2d-807b-aaf2d262a24f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/smart.min.js" afterPath="$PROJECT_DIR$/dist/smart.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/vue-date-picker.js" afterPath="$PROJECT_DIR$/dist/vue-date-picker.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/vue-date-picker.js.map" afterPath="$PROJECT_DIR$/dist/vue-date-picker.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VueDatePicker.vue" afterPath="$PROJECT_DIR$/src/VueDatePicker.vue" />
     </list>
     <ignored path="vue-datepicker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,15 +27,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="208">
+              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <marker date="1468401898000" expanded="true" signature="1132:1140" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VueDatePicker.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/VueDatePicker.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="561" column="14" selection-start-line="561" selection-start-column="14" selection-end-line="561" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -66,8 +80,8 @@
         <option value="$PROJECT_DIR$/.babelrc" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
-        <option value="$PROJECT_DIR$/src/VueDatePicker.vue" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/src/VueDatePicker.vue" />
       </list>
     </option>
   </component>
@@ -272,12 +286,13 @@
       <workItem from="1468256910459" duration="233000" />
       <workItem from="1468318835454" duration="524000" />
       <workItem from="1468319753590" duration="77000" />
-      <workItem from="1468401891280" duration="16000" />
+      <workItem from="1468401891280" duration="456000" />
+      <workItem from="1468610523973" duration="165000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62109000" />
+    <option name="totallyTimeSpent" value="62714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="833" extended-state="6" />
@@ -530,21 +545,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/VueDatePicker.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="123" column="58" selection-start-line="123" selection-start-column="58" selection-end-line="123" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="208">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <marker date="1468401898000" expanded="true" signature="1132:1140" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/VueDatePicker.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="561" column="14" selection-start-line="561" selection-start-column="14" selection-end-line="561" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

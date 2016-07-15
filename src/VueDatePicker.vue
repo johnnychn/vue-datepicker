@@ -199,7 +199,6 @@
     var Css=Smart.Css;
     var Event=Smart.Event;
     var _=Smart._;
-    var documentEvent=Event.documentEvent;
 
     //正则匹配
     function match(str, matchs) {
@@ -491,7 +490,6 @@
                 this.updateDate(this.real_date);
                 if (this.min_time == 'day' && this.autoClose) {
                     this.show = false;
-                    return;
                 }
             }
 
@@ -557,7 +555,7 @@
             'show': function (val, oldVal) {
                 var me = this;
                 if (val == true) {
-                    documentEvent('click', me.close)
+                    Event.documentEvent('click', me.close)
                 }else{
                     this.updateDate(this.real_date);
                 }
